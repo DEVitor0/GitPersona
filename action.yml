@@ -1,0 +1,21 @@
+name: 'GitPersona Card Generator'
+description: 'Gera um card de persona RPG baseado no seu perfil do GitHub'
+author: 'devitor0'
+inputs:
+  github_token:
+    description: 'Token do GitHub para acessar a API'
+    required: true
+    default: ${{ github.token }}
+  username:
+    description: 'Nome do usuário para analisar (padrão: usuário do contexto)'
+    required: false
+  output_dir:
+    description: 'Diretório onde o SVG será salvo'
+    required: false
+    default: 'dist'
+runs:
+  using: 'node20'
+  main: 'dist/action/index.js'
+branding:
+  icon: 'user-check'
+  color: 'purple'
