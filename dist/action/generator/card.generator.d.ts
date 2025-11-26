@@ -1,6 +1,6 @@
 import { ResultadoPersona } from '../types';
 export declare class GeradorCard {
-    gerarSVG(resultado: ResultadoPersona): string;
+    gerarSVG(resultado: ResultadoPersona): Promise<string>;
     private gerarStatsHorizontal;
     private obterCaracteristicas;
     private imagemParaBase64;

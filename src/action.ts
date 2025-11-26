@@ -50,7 +50,7 @@ async function run() {
 
     // 3. Gerar Card
     const gerador = new GeradorCard();
-    const svg = gerador.gerarSVG(resultado);
+    const svg = await gerador.gerarSVG(resultado);
 
     // 4. Salvar Arquivo
     // Garantir que o diretório existe

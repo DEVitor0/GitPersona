@@ -1,6 +1,7 @@
 import { ResultadoPersona, TipoPersona, EstatisticasAnalisadas } from '../types';
-import { readFileSync, writeFileSync, existsSync, mkdirSync } from 'fs';
+import { writeFileSync, existsSync, mkdirSync } from 'fs';
 import { join } from 'path';
+import axios from 'axios';
 
 interface CaracteristicaVisual {
   icone: string;
@@ -23,11 +24,11 @@ const ICONES = {
 };
 
 export class GeradorCard {
-  gerarSVG(resultado: ResultadoPersona): string {
+  async gerarSVG(resultado: ResultadoPersona): Promise<string> {
     const { persona, estatisticas, nomeUsuario } = resultado;
 
-    const caminhoImagem = join(process.cwd(), persona.caminhoImagem);
-    const imagemBase64 = this.imagemParaBase64(caminhoImagem);
+    // Agora o caminhoImagem é uma URL pública
+    const imagemBase64 = await this.imagemParaBase64(persona.caminhoImagem);
 
     const larguraCard = 750;
     const alturaCard = 220;
@@ -173,12 +174,13 @@ export class GeradorCard {
 
 
 
-  private imagemParaBase64(caminhoImagem: string): string {
+  private async imagemParaBase64(urlImagem: string): Promise<string> {
     try {
-      const bufferImagem = readFileSync(caminhoImagem);
-      return bufferImagem.toString('base64');
+      const response = await axios.get(urlImagem, { responseType: 'arraybuffer' });
+      const buffer = Buffer.from(response.data, 'binary');
+      return buffer.toString('base64');
     } catch (erro) {
-      console.error(`erro ao ler imagem: ${caminhoImagem}`, erro);
+      console.error(`erro ao baixar imagem: ${urlImagem}`, erro);
       return '';
     }
   }

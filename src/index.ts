@@ -37,7 +37,7 @@ programa
       
       console.log(`\ngerando card svg`);
       const geradorCard = new GeradorCard();
-      const svg = geradorCard.gerarSVG(resultado);
+      const svg = await geradorCard.gerarSVG(resultado);
       const caminhoSaida = geradorCard.salvarSVG(svg, nomeUsuario);
       
       console.log(`card salvo em ${caminhoSaida}`);
