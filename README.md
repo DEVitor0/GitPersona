@@ -1,6 +1,6 @@
 # 🐙 GitPersona - A identidade visual do seu código
 
-> **Transforme commits em personalidade.** Uma análise comportamental que converte seus dados do GitHub em cards visuais de alta qualidade. O sistema utiliza métricas de repositórios, linguagens e frequência de commits para categorizar seu estilo de desenvolvimento em um card informativo. 
+> **Transforme commits em personalidade.** Uma análise comportamental que converte seus dados do GitHub em cards visuais de alta qualidade. O sistema utiliza métricas de repositórios, linguagens e frequência de commits para categorizar seu estilo de desenvolvimento em um card informativo.
 
 ![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=typescript&logoColor=white)
 ![Node.js](https://img.shields.io/badge/Node.js-43853D?style=for-the-badge&logo=node.js&logoColor=white)
@@ -38,6 +38,17 @@ Recrutadores técnicos analisam dezenas de perfis diariamente. O GitPersona atua
 <img src="assets/demo/demo-devops.svg" width="100%">
 <img src="assets/demo/demo-estudante.svg" width="100%">
 
+---
+
+## 📚 Documentação Técnica
+
+Quer entender como o sistema funciona por dentro? Acesse a **[Documentação Técnica Completa](https://github.com/DEVitor0/GitPersona/wiki)** para detalhes sobre:
+- Arquitetura do sistema e padrões de design
+- Análise de complexidade e performance
+- Guia de extensibilidade e manutenção
+
+---
+
 ## 🚀 Como Adicionar ao Seu Perfil (Passo a Passo)
 
 Siga este guia para configurar o GitPersona no seu repositório de perfil (aquele com o mesmo nome do seu usuário, ex: `seunome/seunome`).
@@ -66,7 +77,7 @@ jobs:
       - name: Generate Persona Card
         uses: devitor0/GitPersona@main
         with:
-          github_token: ${{ secrets.PAT_TOKEN }} # Recomendado: Criar um PAT para ler repos privados
+          github_token: ${{ secrets.PAT_TOKEN }} # Obrigatório: Criar um PAT para funcionamento correto
           username: ${{ github.repository_owner }}
           output_dir: dist
           
@@ -79,10 +90,10 @@ jobs:
           git push
 ```
 
-### ⚠️ Importante: Para obter dados precisos (Repos Privados)
-O token padrão do GitHub (`GITHUB_TOKEN`) tem acesso limitado e **não consegue ler seus repositórios privados**, o que pode gerar uma persona "incoerente" (ex: Iniciante em vez de Senior).
+### ⚠️ Obrigatório: Configurar Personal Access Token (PAT)
+O token padrão do GitHub (`GITHUB_TOKEN`) tem acesso limitado e **não consegue ler seus repositórios privados**, impedindo o funcionamento correto da análise e gerando resultados imprecisos (ex: classificar um desenvolvedor experiente como Iniciante).
 
-Para corrigir isso:
+**O PAT é obrigatório para o uso e funcionamento adequado do GitPersona.** Para configurá-lo:
 1.  Vá em **Settings** (do seu perfil) -> **Developer Settings** -> **Personal Access Tokens** -> **Tokens (classic)**.
 2.  Gere um novo token (Generate new token) com o escopo **`repo`** e **`read:user`**.
 3.  Copie o token.
